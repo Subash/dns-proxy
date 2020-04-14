@@ -1,0 +1,23 @@
+{
+  "name": "dns-proxy",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "dns-packet": "^5.2.1",
+    "forever": "^2.0.0",
+    "is-ip": "^3.1.0",
+    "is-url": "^1.2.4",
+    "node-fetch": "^2.6.0"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "forever src/server.js",
+    "start-dev": "sudo node src/server.js",
+    "docker-build": "docker build -t subash/dns-proxy .",
+    "docker-run": "docker run --env REMOTE_SERVERS=https://cloudflare-dns.com/dns-query -p 53:53/udp subash/dns-proxy",
+    "docker-publish": "docker push subash/dns-proxy:latest"
+  },
+  "devDependencies": {
+    "jest": "^25.3.0"
+  }
+}
