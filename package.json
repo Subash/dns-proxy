@@ -10,14 +10,11 @@
     "node-fetch": "^2.6.0"
   },
   "scripts": {
-    "test": "jest",
-    "start": "forever src/server.js",
-    "start-dev": "sudo node src/server.js",
-    "docker-build": "docker build -t subash/dns-proxy .",
-    "docker-run": "docker run --env REMOTE_SERVERS=https://cloudflare-dns.com/dns-query -p 53:53/udp subash/dns-proxy",
-    "docker-publish": "docker push subash/dns-proxy:latest"
+    "start": "forever src/server.js"
   },
   "devDependencies": {
-    "jest": "^25.3.0"
+    "@sbspk/run": "0.0.5",
+    "jest": "^25.3.0",
+    "ora": "^4.0.3"
   }
 }
