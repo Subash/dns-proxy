@@ -11,6 +11,7 @@ server.on('message', async (packet, rinfo)=> {
   try {
     response = await queryServers(config.remoteServers, packet, { timeout: 30 * 1000 });
   } catch (err) {
+    console.log(err.message);
     response = encode({ type: 'response', id: request.id, flags: 2, questions: request.questions }); // flag 2 is SERVFAIL; https://serverfault.com/a/827108
   }
 
