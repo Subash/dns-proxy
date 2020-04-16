@@ -55,7 +55,7 @@ exports.queryServer = async function queryServer(server, packet, { timeout }) {
 }
 
 // query all servers then pick whichever resolves first
-exports.queryServers = function queryServers(servers, packet, { timeout = 10 * 1000 } = {}) {
+exports.queryServers = function queryServers(servers, packet, { timeout }) {
   return new Promise((resolve, reject)=> {
     let errorCount = 0;
     servers.forEach(server=> {

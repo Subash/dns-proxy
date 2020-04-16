@@ -8,17 +8,19 @@ const packet = encode({
   questions: [{ type: 'A', name: 'google.com' }]
 });
 
+const options = { timeout: 10 * 1000 };
+
 test('Query HTTP', async ()=> {
-  const response = decode(await queryServers(['https://cloudflare-dns.com/dns-query'], packet));
+  const response = decode(await queryServers(['https://cloudflare-dns.com/dns-query'], packet, options));
   expect(response.answers.length).toBeGreaterThan(0);
 });
 
 test('Query HTTP Error', async ()=> {
-  await expect(queryServer('https://www.google.com/abcd', packet, { timeout: 10 * 1000 })).rejects.toEqual(new Error('Not Found'));
+  await expect(queryServer('https://www.google.com/abcd', packet, options)).rejects.toEqual(new Error('Not Found'));
 });
 
 test('Query UDP', async ()=> {
-  const response = decode(await queryServers(['1.1.1.1'], packet));
+  const response = decode(await queryServers(['1.1.1.1'], packet, options));
   expect(response.answers.length).toBeGreaterThan(0);
 });
 
@@ -31,5 +33,5 @@ test('Query Invalid Server', async ()=> {
 });
 
 test('Multiple Query Errors', async ()=> {
-  await expect(queryServers(['https://subashpathak.com/404.htlm', 'https://subashpathak.com/404.htlm'], packet )).rejects.toEqual(new Error(`Not Found`));
+  await expect(queryServers(['https://subashpathak.com/404.htlm', 'https://subashpathak.com/404.htlm'], packet, options)).rejects.toEqual(new Error(`Not Found`));
 });
