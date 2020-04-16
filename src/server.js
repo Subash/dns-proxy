@@ -1,10 +1,19 @@
+const { encode, decode } = require('dns-packet');
 const dgram = require('dgram');
 const config = require('./config');
 const { queryServers } = require('./query');
 
 const server = dgram.createSocket('udp4');
 server.on('message', async (packet, rinfo)=> {
-  const response = await queryServers(config.remoteServers, packet, { timeout: 10 * 1000 }); // queryServers() never rejects
+  let request = decode(packet);
+
+  let response;
+  try {
+    response = await queryServers(config.remoteServers, packet, { timeout: 10 * 1000 });
+  } catch (err) {
+    response = encode({ type: 'response', id: request.id, flags: 2, questions: request.questions }); // flag 2 is SERVFAIL; https://serverfault.com/a/827108
+  }
+
   server.send(response, 0, response.length, rinfo.port, rinfo.address);
 });
 
