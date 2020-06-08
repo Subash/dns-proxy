@@ -10,11 +10,10 @@
     "node-fetch": "^2.6.0"
   },
   "scripts": {
-    "start": "forever src/server.js"
+    "start": "forever src/server.js",
+    "build": "./build.sh"
   },
   "devDependencies": {
-    "@sbspk/run": "0.0.5",
-    "jest": "^25.3.0",
-    "ora": "^4.0.3"
+    "jest": "^25.3.0"
   }
 }
