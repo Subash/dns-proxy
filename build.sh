@@ -1,6 +1,6 @@
 #!/bin/bash
-TAG="latest"
-ARCH=`uname -m`
-[[ $ARCH == arm* ]] && TAG="pi"
-docker build -t "subash/dns-proxy:$TAG" .
-docker push "subash/dns-proxy:$TAG"
+tag="latest"
+arch=`uname -m`
+[[ $arch == arm* ]] && tag="pi"
+docker build -t "subash/dns-proxy:$tag" .
+docker push "subash/dns-proxy:$tag"
